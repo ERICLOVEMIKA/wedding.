@@ -61,7 +61,7 @@
       background: #ffffff;
       border: 1px solid rgba(212, 163, 115, 0.25);
     }
-    /* 精準對齊參考圖的完美拱門卡片與蕾絲邊框設計 */
+    /* Hero Section Architecture */
     .hero-container {
       position: relative;
       width: 100%;
@@ -79,7 +79,7 @@
       width: 100%;
       height: 75vh;
       object-fit: cover;
-      object-position: center 15%; /* 往上對齊，確保臉部不會被遮擋 */
+      object-position: center 12%; /* 確保臉部不會被遮擋 */
       z-index: 1;
     }
     .hero-arch-card {
@@ -88,7 +88,7 @@
       background: #ffffff;
       border-top-left-radius: 180px;
       border-top-right-radius: 180px;
-      margin-top: 55vh; /* 給予照片更多露出空間 */
+      margin-top: 55vh;
       padding-top: 3.5rem;
       padding-bottom: 4rem;
       padding-left: 1.5rem;
@@ -103,7 +103,7 @@
     @media (max-width: 640px) {
       .hero-bg-img {
         height: 70vh;
-        object-position: center 10%; /* 手機版更加向上移，完整展現頭部與氣球 */
+        object-position: center 8%;
       }
       .hero-arch-card {
         border-top-left-radius: 140px;
@@ -115,16 +115,15 @@
 </head>
 <body class="antialiased selection:bg-wedding-red selection:text-white">
 
-  <!-- Korean Romance Melody: Soft Acoustic & Piano Track -->
-  <audio id="bgMusic" loop preload="auto">
-    <source src="https://cdn.pixabay.com/download/audio/202/audio_1808fbf07a.mp3?filename=romantic-wedding-piano-112191.mp3" type="audio/mpeg">
-    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73950.mp3?filename=sweet-korean-romance-10156.mp3" type="audio/mpeg">
+  <!-- Audio Element with direct reliable MP3 fallback chain -->
+  <audio id="bgMusic" loop preload="auto" playsinline>
+    <source id="audioSource" src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Trio_Tornados/Symphony_No_5/Trio_Tornados_-_01_-_Romantic_Piano.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- Floating Music Button -->
-  <button id="musicBtn" onclick="toggleMusic()" class="fixed top-4 right-4 z-50 px-3.5 py-2 rounded-full bg-wedding-red/90 hover:bg-wedding-red text-white soft-shadow flex items-center space-x-2 transition-transform duration-300 focus:outline-none shadow-lg cursor-pointer" aria-label="Music Control">
+  <!-- Floating Music Control Button -->
+  <button id="musicBtn" onclick="toggleMusic()" class="fixed top-4 right-4 z-50 px-3.5 py-2 rounded-full bg-wedding-red hover:bg-wedding-lightRed text-white soft-shadow flex items-center space-x-2 transition-all duration-300 focus:outline-none shadow-lg cursor-pointer transform active:scale-95" aria-label="Music Control">
     <i id="musicIcon" class="fas fa-music text-xs animate-bounce"></i>
-    <span id="musicText" class="text-xs tracking-wider font-medium">播放給你宇宙</span>
+    <span id="musicText" class="text-xs tracking-wider font-medium">點擊播放音樂</span>
   </button>
 
   <!-- Navigation Bar -->
@@ -140,27 +139,14 @@
     </div>
   </nav>
 
-  <!-- Audio Element with Multiple Sound Sources -->
-  <audio id="bgMusic" loop preload="auto" playsinline>
-    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73950.mp3?filename=sweet-korean-romance-10156.mp3" type="audio/mpeg">
-    <source src="https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
-  </audio>
-
-  <!-- Floating Music Button with Enhanced Click Handler -->
-  <button id="musicBtn" onclick="toggleMusic(true)" class="fixed top-4 right-4 z-50 px-3.5 py-2 rounded-full bg-wedding-red hover:bg-wedding-lightRed text-white soft-shadow flex items-center space-x-2 transition-all duration-300 focus:outline-none shadow-lg cursor-pointer transform active:scale-95" aria-label="Music Control">
-    <i id="musicIcon" class="fas fa-music text-xs animate-bounce"></i>
-    <span id="musicText" class="text-xs tracking-wider font-medium">點擊播放背景音樂</span>
-  </button>
-
   <section id="hero" class="hero-container">
-    
-    <!-- Top Wedding Photo -->
+    <!-- Top Wedding Cover Photo -->
     <img src="https://i.postimg.cc/J7QnMFTJ/0J7A8205.jpg" alt="政儒 &amp; 怡靜 封面照" class="hero-bg-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80';">
 
     <!-- Arch White Card Wrapper -->
     <div class="hero-arch-card">
       
-      <!-- Red Ribbon & Lace Motif matching reference image -->
+      <!-- Red Ribbon Motif -->
       <div class="mb-3 text-wedding-red transform hover:scale-110 transition-transform duration-300">
         <svg class="w-12 h-12 md:w-14 md:h-14" viewBox="0 0 64 64" fill="currentColor">
           <path d="M32 28c-4-6-14-10-18-4-5 7 2 15 11 15 5 0 7-3 7-3s2 3 7 3c9 0 16-8 11-15-4-6-14-2-18 4z" fill="none" stroke="currentColor" stroke-width="2.5"/>
@@ -257,7 +243,7 @@
 
         <div class="max-w-md mx-auto mb-8">
           <div class="overflow-hidden rounded-2xl shadow-sm h-60 md:h-80 border-2 border-white">
-            <img src="https://i.postimg.cc/9FY4nKhq/0J7A8218.jpg" alt="政儒與怡靜 婚紗照" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80';">
+            <img src="https://i.postimg.cc/2SjqRGkn/0J7A8225.jpg" alt="政儒與怡靜 婚紗照" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80';">
           </div>
         </div>
 
@@ -316,7 +302,7 @@
     </div>
   </section>
 
-  <!-- Hidden Iframe for form submission -->
+  <!-- Hidden Iframe for smooth form submission -->
   <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
   <section id="rsvp" class="py-14 md:py-24 bg-wedding-sand/30">
@@ -363,27 +349,7 @@
           </div>
 
           <div id="attendSection" class="space-y-5">
-            <!-- 4. 喜帖需求 INVITATION -->
-            <div>
-              <label class="block text-xs font-semibold uppercase tracking-wider text-wedding-dark mb-2">
-                喜帖需求 <span class="font-cormorant text-sm text-wedding-sage font-normal">INVITATION</span>
-              </label>
-              <select id="cardSelect" name="entry.1938860839" onchange="handleCardChange()" class="w-full px-4 py-3 rounded-xl border border-wedding-warm/30 focus:border-wedding-red focus:ring-1 focus:ring-wedding-red outline-none bg-wedding-light/50 transition-all text-sm cursor-pointer">
-                <option value="要，請給我電子喜帖">要，請給我電子喜帖</option>
-                <option value="要，請給我紙本喜帖">要，請給我紙本喜帖</option>
-                <option value="都不需要，以了解婚禮資訊">都不需要，以了解婚禮資訊</option>
-              </select>
-            </div>
-
-            <!-- 5. 紙本喜帖寄送地址 ADDRESS -->
-            <div id="addressGroup" class="hidden">
-              <label class="block text-xs font-semibold uppercase tracking-wider text-wedding-dark mb-2">
-                紙本喜帖寄送地址 <span class="font-cormorant text-sm text-wedding-sage font-normal">ADDRESS</span>
-              </label>
-              <input type="text" name="entry.56184496" placeholder="請輸入完整的郵遞區號及寄送地址" class="w-full px-4 py-3 rounded-xl border border-wedding-warm/30 focus:border-wedding-red focus:ring-1 focus:ring-wedding-red outline-none bg-wedding-light/50 transition-all text-sm">
-            </div>
-
-            <!-- 6. 參加人數 GUESTS -->
+            <!-- 4. 參加人數 GUESTS -->
             <div>
               <label class="block text-xs font-semibold uppercase tracking-wider text-wedding-dark mb-2">
                 參加人數 <span class="font-cormorant text-sm text-wedding-sage font-normal">GUESTS</span>
@@ -391,9 +357,9 @@
               <input type="number" id="guestInput" name="entry.905756050" min="0" value="1" oninput="handleGuestChange()" placeholder="1" class="w-full px-4 py-3 rounded-xl border border-wedding-warm/30 focus:border-wedding-red focus:ring-1 focus:ring-wedding-red outline-none bg-wedding-light/50 transition-all text-sm">
             </div>
 
-            <!-- Extra Options (Shown only when guests > 0) -->
+            <!-- Extra Options -->
             <div id="extraGuestOptions" class="space-y-5 pt-2 border-t border-dashed border-wedding-warm/25">
-              <!-- 7. 素食需求 DIETARY -->
+              <!-- 5. 素食需求 DIETARY -->
               <div>
                 <label class="block text-xs font-semibold uppercase tracking-wider text-wedding-dark mb-2">
                   素食需求 <span class="font-cormorant text-sm text-wedding-sage font-normal">DIETARY</span>
@@ -402,7 +368,7 @@
                 <span class="text-[11px] text-wedding-sage mt-1 block">請填寫素食人數 (無則填 0)</span>
               </div>
 
-              <!-- 8. 兒童椅 BABY CHAIR -->
+              <!-- 6. 兒童椅 BABY CHAIR -->
               <div>
                 <label class="block text-xs font-semibold uppercase tracking-wider text-wedding-dark mb-2">
                   兒童椅 <span class="font-cormorant text-sm text-wedding-sage font-normal">BABY CHAIR</span>
@@ -413,7 +379,7 @@
             </div>
           </div>
 
-          <!-- 9. 給新人的祝福 BLESSINGS -->
+          <!-- 7. 給新人的祝福 BLESSINGS -->
           <div>
             <label class="block text-xs font-semibold uppercase tracking-wider text-wedding-dark mb-2">
               給新人的祝福 <span class="font-cormorant text-sm text-wedding-sage font-normal">BLESSINGS</span>
@@ -450,32 +416,37 @@
   </div>
 
   <script>
-    let musicStarted = false;
+    // Multiple reliable fallback direct audio tracks
+    const audioPlaylist = [
+      "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Trio_Tornados/Symphony_No_5/Trio_Tornados_-_01_-_Romantic_Piano.mp3",
+      "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-wedding-piano-112191.mp3",
+      "https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73950.mp3?filename=sweet-korean-romance-10156.mp3"
+    ];
+    let currentTrackIndex = 0;
+    let isPlaying = false;
 
-    function playAudio() {
+    function initAudio() {
       const music = document.getElementById('bgMusic');
-      const icon = document.getElementById('musicIcon');
-      const text = document.getElementById('musicText');
-
       if (!music) return;
-      
-      music.volume = 0.5;
-      const promise = music.play();
+      music.volume = 0.3; // 音量預設 30%
 
-      if (promise !== undefined) {
-        promise.then(() => {
-          musicStarted = true;
-          if (icon) icon.className = 'fas fa-compact-disc text-xs animate-spin';
-          if (text) text.innerText = '音樂播放中';
-        }).catch(error => {
-          console.log("Audio play failed/blocked by browser policy:", error);
-          if (icon) icon.className = 'fas fa-music text-xs';
-          if (text) text.innerText = '點擊播放音樂';
-        });
-      }
+      music.addEventListener('ended', function() {
+        currentTrackIndex = (currentTrackIndex + 1) % audioPlaylist.length;
+        music.src = audioPlaylist[currentTrackIndex];
+        music.play();
+      });
+
+      music.addEventListener('error', function() {
+        console.log("Audio source error, trying fallback track...");
+        currentTrackIndex = (currentTrackIndex + 1) % audioPlaylist.length;
+        music.src = audioPlaylist[currentTrackIndex];
+        if (isPlaying) {
+          music.play().catch(e => console.log(e));
+        }
+      });
     }
 
-    function toggleMusic(userClicked = false) {
+    function toggleMusic() {
       const music = document.getElementById('bgMusic');
       const icon = document.getElementById('musicIcon');
       const text = document.getElementById('musicText');
@@ -483,30 +454,49 @@
       if (!music) return;
 
       if (music.paused) {
-        playAudio();
+        music.volume = 0.3;
+        const playPromise = music.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            isPlaying = true;
+            if (icon) icon.className = 'fas fa-compact-disc text-xs animate-spin';
+            if (text) text.innerText = '音樂播放中';
+          }).catch(err => {
+            console.log("Play interrupted, trying next source", err);
+            currentTrackIndex = (currentTrackIndex + 1) % audioPlaylist.length;
+            music.src = audioPlaylist[currentTrackIndex];
+            music.play().then(() => {
+              isPlaying = true;
+              if (icon) icon.className = 'fas fa-compact-disc text-xs animate-spin';
+              if (text) text.innerText = '音樂播放中';
+            }).catch(e => console.log(e));
+          });
+        }
       } else {
         music.pause();
+        isPlaying = false;
         if (icon) icon.className = 'fas fa-music text-xs';
-        if (text) text.innerText = '播放背景音樂';
+        if (text) text.innerText = '點擊播放音樂';
       }
     }
 
-    function initAudioAutoplay() {
-      // Setup global click listener to unlock audio policy
-      const unlockAudio = () => {
-        if (!musicStarted) {
-          playAudio();
+    function setupAutoUnlock() {
+      const unlock = () => {
+        const music = document.getElementById('bgMusic');
+        if (music && music.paused && !isPlaying) {
+          toggleMusic();
         }
-        document.removeEventListener('click', unlockAudio);
-        document.removeEventListener('touchstart', unlockAudio);
-        document.removeEventListener('scroll', unlockAudio);
+        document.removeEventListener('click', unlock);
+        document.removeEventListener('touchstart', unlock);
+        document.removeEventListener('scroll', unlock);
       };
 
-      document.addEventListener('click', unlockAudio);
-      document.addEventListener('touchstart', unlockAudio);
-      document.addEventListener('scroll', unlockAudio, { once: true });
+      document.addEventListener('click', unlock, { once: true });
+      document.addEventListener('touchstart', unlock, { once: true });
+      document.addEventListener('scroll', unlock, { once: true });
     }
 
+    // Accordion Control
     function toggleAccordion(id) {
       const el = document.getElementById(id);
       const icon = document.getElementById(id + 'Icon');
@@ -519,6 +509,7 @@
       }
     }
 
+    // Form logic
     function handleAttendChange() {
       const attendSelect = document.getElementById('attendSelect');
       const attendSection = document.getElementById('attendSection');
@@ -526,16 +517,6 @@
         attendSection.classList.add('hidden');
       } else {
         attendSection.classList.remove('hidden');
-      }
-    }
-
-    function handleCardChange() {
-      const cardSelect = document.getElementById('cardSelect');
-      const addressGroup = document.getElementById('addressGroup');
-      if (cardSelect && cardSelect.value === '要，請給我紙本喜帖') {
-        addressGroup.classList.remove('hidden');
-      } else if (addressGroup) {
-        addressGroup.classList.add('hidden');
       }
     }
 
@@ -554,7 +535,6 @@
       document.getElementById('successModal').classList.remove('hidden');
       document.getElementById('weddingForm').reset();
       handleAttendChange();
-      handleCardChange();
       handleGuestChange();
       const submitBtn = document.getElementById('submitBtn');
       submitBtn.disabled = false;
@@ -575,9 +555,7 @@
       }, 1200);
     });
 
-    // ----------------------------------------------------
     // Countdown Timer
-    // ----------------------------------------------------
     const weddingDate = new Date('2027-03-06T11:30:00').getTime();
 
     function updateCountdown() {
@@ -605,37 +583,13 @@
 
     setInterval(updateCountdown, 1000);
 
-    // ----------------------------------------------------
-    // Page Initialization
-    // ----------------------------------------------------
+    // Initializer
     window.onload = function() {
+      initAudio();
+      setupAutoUnlock();
       updateCountdown();
       handleAttendChange();
-      handleCardChange();
       handleGuestChange();
-
-      // 初始化音量為 30%
-      const music = document.getElementById('bgMusic');
-      if (music) {
-        music.volume = 0.3;
-      }
-
-      // Autoplay on first user click anywhere
-      const enableAudioOnClick = function() {
-        const music = document.getElementById('bgMusic');
-        const icon = document.getElementById('musicIcon');
-        const text = document.getElementById('musicText');
-
-        if (music.paused) {
-          music.volume = 0.3;
-          music.play().then(() => {
-            icon.className = 'fas fa-compact-disc text-xs animate-spin';
-            text.innerText = '給你宇宙播放中';
-            document.removeEventListener('click', enableAudioOnClick);
-          }).catch(() => {});
-        }
-      };
-      document.addEventListener('click', enableAudioOnClick, { once: true });
     };
   </script>
 </body>
