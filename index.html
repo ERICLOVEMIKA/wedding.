@@ -60,28 +60,29 @@
       background: #ffffff;
       border: 1px solid rgba(212, 163, 115, 0.25);
     }
-    /* Arch and lace styling derived from image */
     .hero-arch-card {
       background: #ffffff;
       border-top-left-radius: 180px;
       border-top-right-radius: 180px;
-      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 -15px 35px rgba(0, 0, 0, 0.08);
+      margin-top: -60px;
     }
   </style>
 </head>
 <body class="antialiased selection:bg-wedding-red selection:text-white">
 
-  <!-- Define global script variables early to prevent ReferenceError on iframe load -->
+  <!-- Define global script variables early -->
   <script>
     window.submitted = false;
   </script>
 
+  <!-- Background Music (Galaxy - Bolbbalgan4) -->
   <audio id="bgMusic" loop>
     <source src="https://ia801503.us.archive.org/15/items/bolbbalgan4-galaxy/Bolbbalgan4%20-%20Galaxy.mp3" type="audio/mpeg">
   </audio>
 
   <!-- Top Right Music Disc Icon -->
-  <button id="musicBtn" onclick="toggleMusic()" class="fixed top-5 right-5 z-50 w-10 h-10 rounded-full bg-wedding-red/80 hover:bg-wedding-red text-white soft-shadow flex items-center justify-center transition-transform duration-300 focus:outline-none" aria-label="Music Control">
+  <button id="musicBtn" onclick="toggleMusic()" class="fixed top-5 right-5 z-50 w-10 h-10 rounded-full bg-wedding-red/85 hover:bg-wedding-red text-white soft-shadow flex items-center justify-center transition-transform duration-300 focus:outline-none" aria-label="Music Control">
     <i id="musicIcon" class="fas fa-music text-sm"></i>
   </button>
 
@@ -97,20 +98,20 @@
     </div>
   </nav>
 
-  <section id="hero" class="relative min-h-screen pt-14 flex flex-col justify-between items-center overflow-hidden bg-stone-100">
-    <!-- Top Image Container with Fallback handling -->
-    <div class="relative w-full flex-1 max-h-[65vh] overflow-hidden bg-wedding-sand">
-      <img src="https://i.postimg.cc/J7QnMFTJ/0J7A8205.jpg" alt="政儒 & 怡靜 封面照" class="w-full h-full object-cover object-top" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80';">
-      <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/10"></div>
+  <section id="hero" class="relative min-h-screen pt-14 flex flex-col justify-between items-center overflow-hidden bg-wedding-sand">
+    <!-- Top Image Container -->
+    <div class="relative w-full flex-1 max-h-[62vh] overflow-hidden bg-wedding-sand">
+      <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80" alt="政儒 & 怡靜 封面照" class="w-full h-full object-cover object-top" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=80';">
+      <div class="absolute inset-0 bg-gradient-to-b from-black/15 via-transparent to-black/5"></div>
     </div>
 
     <!-- Arch White Card overlapping Image bottom -->
-    <div class="relative w-full -mt-24 z-10 hero-arch-card pt-8 pb-12 px-6 flex flex-col items-center text-center border-t border-white/60">
+    <div class="relative w-full z-10 hero-arch-card pt-10 pb-12 px-6 flex flex-col items-center text-center border-t border-white/80">
       
-      <!-- Decorative Lace Edge SVG -->
-      <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-full max-w-sm flex justify-center opacity-90 pointer-events-none">
-        <svg viewBox="0 0 400 30" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full text-white fill-current">
-          <path d="M0 30 C 20 10, 40 10, 60 30 C 80 10, 100 10, 120 30 C 140 10, 160 10, 180 30 C 200 10, 220 10, 240 30 C 260 10, 280 10, 300 30 C 320 10, 340 10, 360 30 C 380 10, 400 10, 400 30 Z"/>
+      <!-- Lace Edge SVG Fixed for Mobile Scaling -->
+      <div class="absolute -top-5 left-0 right-0 flex justify-center opacity-95 pointer-events-none overflow-hidden">
+        <svg viewBox="0 0 400 24" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-full h-5 text-white fill-current">
+          <path d="M0 24 C 20 4, 40 4, 60 24 C 80 4, 100 4, 120 24 C 140 4, 160 4, 180 24 C 200 4, 220 4, 240 24 C 260 4, 280 4, 300 24 C 320 4, 340 4, 360 24 C 380 4, 400 4, 400 24 Z"/>
         </svg>
       </div>
 
@@ -132,7 +133,7 @@
     </div>
 
     <!-- Scroll Down Indicator -->
-    <a href="#invitation-text" class="absolute bottom-2 left-1/2 -translate-x-1/2 z-20 text-wedding-warm hover:text-wedding-red transition-colors animate-bounce">
+    <a href="#invitation-text" class="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 text-wedding-warm hover:text-wedding-red transition-colors animate-bounce">
       <i class="fas fa-chevron-down text-lg"></i>
     </a>
   </section>
@@ -160,7 +161,7 @@
 
       <!-- Secondary Photo -->
       <div class="rounded-2xl overflow-hidden soft-shadow max-w-md mx-auto mb-8 border-4 border-white">
-        <img src="https://i.postimg.cc/9FY4nKhq/0J7A8218.jpg" alt="政儒與怡靜 婚紗照" class="w-full h-auto object-cover" onerror="this.onerror=null; this.src='https://placehold.co/600x400/f5efe6/8b1e23?text=Wedding+Photo';">
+        <img src="https://i.postimg.cc/9FY4nKhq/0J7A8218.jpg" alt="政儒與怡靜 婚紗照" class="w-full h-auto object-cover" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80';">
       </div>
 
       <!-- Small Bow Accent -->
@@ -217,7 +218,7 @@
         <!-- Single Updated Photo Showcase -->
         <div class="max-w-md mx-auto mb-10">
           <div class="overflow-hidden rounded-2xl shadow-sm h-64 md:h-80 border-2 border-white">
-            <img src="https://i.postimg.cc/2SjqRGkn/0J7A8225.jpg" alt="政儒與怡靜 婚紗照" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x400/f5efe6/8b1e23?text=Wedding+Photo';">
+            <img src="https://i.postimg.cc/2SjqRGkn/0J7A8225.jpg" alt="政儒與怡靜 婚紗照" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80';">
           </div>
         </div>
 
@@ -286,9 +287,16 @@
       </div>
 
       <div class="v-card rounded-3xl p-6 md:p-10 soft-shadow relative">
+        <!-- Hidden iframe for silent submit -->
         <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(window.submitted){showSuccessModal();}"></iframe>
 
-        <form id="weddingForm" action="https://docs.google.com/forms/d/e/1FAIpQLScsteB8KjR_VhmB5wBqbQ0fGnTKNZvaAu7BYDVAj-rCGXLKYg/formResponse" method="POST" target="hidden_iframe" onsubmit="window.submitted=true;" class="space-y-6">
+        <!-- Standard HTML Form Submit directly to Google Form endpoint -->
+        <form id="weddingForm" 
+              action="https://docs.google.com/forms/d/e/1FAIpQLScsteB8KjR_VhmB5wBqbQ0fGnTKNZvaAu7BYDVAj-rCGXLKYg/formResponse" 
+              method="POST" 
+              target="hidden_iframe" 
+              onsubmit="window.submitted=true;" 
+              class="space-y-6">
 
           <!-- 1. 姓名 -->
           <div>
@@ -410,40 +418,89 @@
       <h3 class="text-xl font-medium text-wedding-dark mb-2">回函已成功送出</h3>
       <p class="text-sm text-wedding-sage mb-6">非常感謝您的祝福！期待在婚禮當天與您歡聚。</p>
       <button onclick="closeModal()" class="w-full py-3 bg-wedding-red text-white rounded-xl text-sm font-medium tracking-wider hover:bg-wedding-lightRed transition-colors">
-        關閉 Window
+        關閉視窗
       </button>
     </div>
   </div>
 
   <script>
-    // Music Player Setup
-    const bgMusic = document.getElementById('bgMusic');
-    const musicBtn = document.getElementById('musicBtn');
-    const musicIcon = document.getElementById('musicIcon');
-    let isPlaying = false;
-
+    // ----------------------------------------------------
+    // Global Helper Functions (Must be defined before onload)
+    // ----------------------------------------------------
     function toggleMusic() {
-      if (isPlaying) {
-        bgMusic.pause();
-        musicIcon.classList.remove('fa-spin');
-        musicIcon.classList.replace('fa-compact-disc', 'fa-music');
+      const music = document.getElementById('bgMusic');
+      const icon = document.getElementById('musicIcon');
+      if (music.paused) {
+        music.play().then(() => {
+          icon.className = 'fas fa-compact-disc text-sm animate-spin';
+        }).catch(e => {
+          console.log("Audio play blocked:", e);
+        });
       } else {
-        bgMusic.play().then(() => {
-          musicIcon.classList.add('fa-spin');
-          musicIcon.classList.replace('fa-music', 'fa-compact-disc');
-        }).catch(() => {});
+        music.pause();
+        icon.className = 'fas fa-music text-sm';
       }
-      isPlaying = !isPlaying;
     }
 
-    document.addEventListener('click', function initAudio() {
-      if (!isPlaying) {
-        toggleMusic();
+    function toggleAccordion(id) {
+      const el = document.getElementById(id);
+      const icon = document.getElementById(id + 'Icon');
+      if (el.classList.contains('hidden')) {
+        el.classList.remove('hidden');
+        icon.classList.add('rotate-180');
+      } else {
+        el.classList.add('hidden');
+        icon.classList.remove('rotate-180');
       }
-      document.removeEventListener('click', initAudio);
-    }, { once: true });
+    }
 
-    // Countdown Timer (2027-03-06 11:30)
+    function handleAttendChange() {
+      const attendSelect = document.getElementById('attendSelect');
+      const attendSection = document.getElementById('attendSection');
+      if (attendSelect.value === '不克參加，送上祝福') {
+        attendSection.classList.add('hidden');
+      } else {
+        attendSection.classList.remove('hidden');
+      }
+    }
+
+    function handleCardChange() {
+      const cardSelect = document.getElementById('cardSelect');
+      const addressGroup = document.getElementById('addressGroup');
+      if (cardSelect.value === '要，請給我紙本喜帖') {
+        addressGroup.classList.remove('hidden');
+      } else {
+        addressGroup.classList.add('hidden');
+      }
+    }
+
+    function handleGuestChange() {
+      const guestInput = document.getElementById('guestInput');
+      const extraOptions = document.getElementById('extraGuestOptions');
+      const val = parseInt(guestInput.value) || 0;
+      if (val > 0) {
+        extraOptions.classList.remove('hidden');
+      } else {
+        extraOptions.classList.add('hidden');
+      }
+    }
+
+    function showSuccessModal() {
+      document.getElementById('successModal').classList.remove('hidden');
+      document.getElementById('weddingForm').reset();
+      window.submitted = false;
+      handleAttendChange();
+      handleCardChange();
+      handleGuestChange();
+    }
+
+    function closeModal() {
+      document.getElementById('successModal').classList.add('hidden');
+    }
+
+    // ----------------------------------------------------
+    // Countdown Timer Logic
+    // ----------------------------------------------------
     const weddingDate = new Date('2027-03-06T11:30:00').getTime();
 
     function updateCountdown() {
@@ -470,73 +527,26 @@
     }
 
     setInterval(updateCountdown, 1000);
-    updateCountdown();
 
-    // Accordion Handler
-    function toggleAccordion(id) {
-      const content = document.getElementById(id);
-      const icon = document.getElementById(id + 'Icon');
-      
-      if (content.classList.contains('hidden')) {
-        content.classList.remove('hidden');
-        icon.classList.add('rotate-180');
-      } else {
-        content.classList.add('hidden');
-        icon.classList.remove('rotate-180');
-      }
-    }
-
-    // Dynamic Form Logic
-    function handleAttendChange() {
-      const attendSelect = document.getElementById('attendSelect');
-      const attendSection = document.getElementById('attendSection');
-
-      if (attendSelect.value === '不克參加，送上祝福') {
-        attendSection.classList.add('hidden');
-      } else {
-        attendSection.classList.remove('hidden');
-      }
-    }
-
-    function handleCardChange() {
-      const cardSelect = document.getElementById('cardSelect');
-      const addressGroup = document.getElementById('addressGroup');
-
-      if (cardSelect.value === '要，請給我紙本喜帖') {
-        addressGroup.classList.remove('hidden');
-      } else {
-        addressGroup.classList.add('hidden');
-      }
-    }
-
-    function handleGuestChange() {
-      const guestInput = document.getElementById('guestInput');
-      const extraGuestOptions = document.getElementById('extraGuestOptions');
-      const count = parseInt(guestInput.value) || 0;
-
-      if (count > 0) {
-        extraGuestOptions.classList.remove('hidden');
-      } else {
-        extraGuestOptions.classList.add('hidden');
-      }
-    }
-
-    function showSuccessModal() {
-      document.getElementById('successModal').classList.remove('hidden');
-      document.getElementById('weddingForm').reset();
-      handleAttendChange();
-      handleCardChange();
-      handleGuestChange();
-    }
-
-    function closeModal() {
-      document.getElementById('successModal').classList.add('hidden');
-    }
-
+    // ----------------------------------------------------
+    // Page Initialization
+    // ----------------------------------------------------
     window.onload = function() {
+      updateCountdown();
       handleAttendChange();
       handleCardChange();
       handleGuestChange();
+
+      // Attempt autoplay background music on first user interaction
+      document.body.addEventListener('click', function initAudio() {
+        const music = document.getElementById('bgMusic');
+        const icon = document.getElementById('musicIcon');
+        if (music.paused) {
+          music.play().then(() => {
+            icon.className = 'fas fa-compact-disc text-sm animate-spin';
+          }).catch(() => {});
+        }
+      }, { once: true });
     };
   </script>
 </body>
