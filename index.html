@@ -65,7 +65,7 @@
     .hero-container {
       position: relative;
       width: 100%;
-      min-height: 82vh;
+      min-height: 85vh;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
@@ -77,9 +77,9 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 72vh;
+      height: 75vh;
       object-fit: cover;
-      object-position: center top;
+      object-position: center 15%; /* 往上對齊，確保臉部不會被遮擋 */
       z-index: 1;
     }
     .hero-arch-card {
@@ -88,7 +88,7 @@
       background: #ffffff;
       border-top-left-radius: 180px;
       border-top-right-radius: 180px;
-      margin-top: 52vh;
+      margin-top: 55vh; /* 給予照片更多露出空間 */
       padding-top: 3.5rem;
       padding-bottom: 4rem;
       padding-left: 1.5rem;
@@ -101,26 +101,30 @@
       box-shadow: 0 -15px 35px rgba(0, 0, 0, 0.08);
     }
     @media (max-width: 640px) {
+      .hero-bg-img {
+        height: 70vh;
+        object-position: center 10%; /* 手機版更加向上移，完整展現頭部與氣球 */
+      }
       .hero-arch-card {
         border-top-left-radius: 140px;
         border-top-right-radius: 140px;
-        margin-top: 48vh;
+        margin-top: 50vh;
       }
     }
   </style>
 </head>
 <body class="antialiased selection:bg-wedding-red selection:text-white">
 
-  <!-- Sweet Korean Acoustic / Cafe Romance Melody -->
+  <!-- Korean Romance Melody: Soft Acoustic & Piano Track -->
   <audio id="bgMusic" loop preload="auto">
-    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-wedding-piano-112191.mp3" type="audio/mpeg">
+    <source src="https://cdn.pixabay.com/download/audio/202/audio_1808fbf07a.mp3?filename=romantic-wedding-piano-112191.mp3" type="audio/mpeg">
     <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73950.mp3?filename=sweet-korean-romance-10156.mp3" type="audio/mpeg">
   </audio>
 
   <!-- Floating Music Button -->
   <button id="musicBtn" onclick="toggleMusic()" class="fixed top-4 right-4 z-50 px-3.5 py-2 rounded-full bg-wedding-red/90 hover:bg-wedding-red text-white soft-shadow flex items-center space-x-2 transition-transform duration-300 focus:outline-none shadow-lg cursor-pointer" aria-label="Music Control">
     <i id="musicIcon" class="fas fa-music text-xs animate-bounce"></i>
-    <span id="musicText" class="text-xs tracking-wider font-medium">播放浪漫韓曲</span>
+    <span id="musicText" class="text-xs tracking-wider font-medium">播放給你宇宙</span>
   </button>
 
   <!-- Navigation Bar -->
@@ -135,6 +139,18 @@
       </div>
     </div>
   </nav>
+
+  <!-- Audio Element with Multiple Sound Sources -->
+  <audio id="bgMusic" loop preload="auto" playsinline>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73950.mp3?filename=sweet-korean-romance-10156.mp3" type="audio/mpeg">
+    <source src="https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Floating Music Button with Enhanced Click Handler -->
+  <button id="musicBtn" onclick="toggleMusic(true)" class="fixed top-4 right-4 z-50 px-3.5 py-2 rounded-full bg-wedding-red hover:bg-wedding-lightRed text-white soft-shadow flex items-center space-x-2 transition-all duration-300 focus:outline-none shadow-lg cursor-pointer transform active:scale-95" aria-label="Music Control">
+    <i id="musicIcon" class="fas fa-music text-xs animate-bounce"></i>
+    <span id="musicText" class="text-xs tracking-wider font-medium">點擊播放背景音樂</span>
+  </button>
 
   <section id="hero" class="hero-container">
     
@@ -188,7 +204,7 @@
 
       <!-- Secondary Photo -->
       <div class="rounded-2xl overflow-hidden soft-shadow max-w-md mx-auto mb-8 border-4 border-white">
-        <img src="https://i.postimg.cc/2SjqRGkn/0J7A8225.jpg" alt="政儒與怡靜 婚紗照" class="w-full h-auto object-cover" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80';">
+        <img src="https://i.postimg.cc/9FY4nKhq/0J7A8218.jpg" alt="政儒與怡靜 婚紗照" class="w-full h-auto object-cover" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80';">
       </div>
 
       <div class="text-wedding-red/80 flex justify-center">
@@ -241,7 +257,7 @@
 
         <div class="max-w-md mx-auto mb-8">
           <div class="overflow-hidden rounded-2xl shadow-sm h-60 md:h-80 border-2 border-white">
-            <img src="https://i.postimg.cc/2SjqRGkn/0J7A8225.jpg" alt="政儒與怡靜 婚紗照" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80';">
+            <img src="https://i.postimg.cc/9FY4nKhq/0J7A8218.jpg" alt="政儒與怡靜 婚紗照" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80';">
           </div>
         </div>
 
@@ -434,26 +450,61 @@
   </div>
 
   <script>
-    // ----------------------------------------------------
-    // Audio Player Controls (Acoustic Cafe / Romance Melody)
-    // ----------------------------------------------------
-    function toggleMusic() {
+    let musicStarted = false;
+
+    function playAudio() {
       const music = document.getElementById('bgMusic');
       const icon = document.getElementById('musicIcon');
       const text = document.getElementById('musicText');
 
-      if (music.paused) {
-        music.play().then(() => {
-          icon.className = 'fas fa-compact-disc text-xs animate-spin';
-          text.innerText = '韓曲播放中';
-        }).catch(e => {
-          console.log("Audio playback was blocked:", e);
+      if (!music) return;
+      
+      music.volume = 0.5;
+      const promise = music.play();
+
+      if (promise !== undefined) {
+        promise.then(() => {
+          musicStarted = true;
+          if (icon) icon.className = 'fas fa-compact-disc text-xs animate-spin';
+          if (text) text.innerText = '音樂播放中';
+        }).catch(error => {
+          console.log("Audio play failed/blocked by browser policy:", error);
+          if (icon) icon.className = 'fas fa-music text-xs';
+          if (text) text.innerText = '點擊播放音樂';
         });
+      }
+    }
+
+    function toggleMusic(userClicked = false) {
+      const music = document.getElementById('bgMusic');
+      const icon = document.getElementById('musicIcon');
+      const text = document.getElementById('musicText');
+
+      if (!music) return;
+
+      if (music.paused) {
+        playAudio();
       } else {
         music.pause();
-        icon.className = 'fas fa-music text-xs';
-        text.innerText = '播放音樂';
+        if (icon) icon.className = 'fas fa-music text-xs';
+        if (text) text.innerText = '播放背景音樂';
       }
+    }
+
+    function initAudioAutoplay() {
+      // Setup global click listener to unlock audio policy
+      const unlockAudio = () => {
+        if (!musicStarted) {
+          playAudio();
+        }
+        document.removeEventListener('click', unlockAudio);
+        document.removeEventListener('touchstart', unlockAudio);
+        document.removeEventListener('scroll', unlockAudio);
+      };
+
+      document.addEventListener('click', unlockAudio);
+      document.addEventListener('touchstart', unlockAudio);
+      document.addEventListener('scroll', unlockAudio, { once: true });
     }
 
     function toggleAccordion(id) {
@@ -563,6 +614,12 @@
       handleCardChange();
       handleGuestChange();
 
+      // 初始化音量為 30%
+      const music = document.getElementById('bgMusic');
+      if (music) {
+        music.volume = 0.3;
+      }
+
       // Autoplay on first user click anywhere
       const enableAudioOnClick = function() {
         const music = document.getElementById('bgMusic');
@@ -570,9 +627,10 @@
         const text = document.getElementById('musicText');
 
         if (music.paused) {
+          music.volume = 0.3;
           music.play().then(() => {
             icon.className = 'fas fa-compact-disc text-xs animate-spin';
-            text.innerText = '韓曲播放中';
+            text.innerText = '給你宇宙播放中';
             document.removeEventListener('click', enableAudioOnClick);
           }).catch(() => {});
         }
