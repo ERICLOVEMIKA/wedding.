@@ -1,227 +1,543 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-TW" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>政儒 & 怡靜 婚禮邀請函 | WEDDING INVITATION</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>政儒 & 怡靜 婚禮邀請函 | Wedding Invitation</title>
   
-  <!-- 字體引入 -->
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Playfair Display, Cormorant Garamond & Noto Serif TC -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Noto+Serif+TC:wght@300;400;600;700&display=swap" rel="stylesheet">
-  
-  <!-- FontAwesome 圖示 -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+TC:wght@300;400;600&family=Playfair+Display:ital,wght@0,500;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            wedding: {
+              red: '#8b1e23',
+              lightRed: '#b83b40',
+              warm: '#d4a373',
+              sage: '#8da399',
+              light: '#fcfaf7',
+              sand: '#f5efe6',
+              dark: '#332a26',
+              cream: '#ffffff'
+            }
+          },
+          fontFamily: {
+            serif: ['Noto Serif TC', 'serif'],
+            playfair: ['Playfair Display', 'serif'],
+            cormorant: ['Cormorant Garamond', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+
   <style>
-    :root {
-      --primary-red: #8B1E2D;
-      --soft-red: #A8201A;
-      --bg-cream: #FAF7F5;
-      --card-white: #FFFFFF;
-      --text-dark: #2B2B2B;
-      --text-muted: #666666;
-      --border-color: #EADCD6;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      -webkit-tap-highlight-color: transparent;
-    }
-
     body {
       font-family: 'Noto Serif TC', serif;
-      background-color: var(--bg-cream);
-      color: var(--text-dark);
-      overflow-x: hidden;
-      line-height: 1.8;
+      background-color: #fcfaf7;
+      color: #332a26;
     }
-
-    .font-english {
-      font-family: 'Cormorant Garamond', serif;
-    }
-
-    .no-wrap {
-      white-space: nowrap;
-    }
-
-    /* 毛玻璃頂部導覽列 */
-    .navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      background: rgba(255, 255, 255, 0.75);
+    .glass-nav {
+      background: rgba(253, 251, 247, 0.85);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(234, 220, 214, 0.5);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 20px;
+    }
+    .soft-shadow {
+      box-shadow: 0 10px 30px -5px rgba(139, 30, 35, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.04);
+    }
+    .v-card {
+      background: #ffffff;
+      border: 1px solid rgba(212, 163, 115, 0.25);
+    }
+    /* Arch and lace styling derived from image */
+    .hero-arch-card {
+      background: #ffffff;
+      border-top-left-radius: 180px;
+      border-top-right-radius: 180px;
+      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.05);
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-wedding-red selection:text-white">
+
+  <!-- Define global script variables early to prevent ReferenceError on iframe load -->
+  <script>
+    window.submitted = false;
+  </script>
+
+  <audio id="bgMusic" loop>
+    <source src="https://ia801503.us.archive.org/15/items/bolbbalgan4-galaxy/Bolbbalgan4%20-%20Galaxy.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Top Right Music Disc Icon -->
+  <button id="musicBtn" onclick="toggleMusic()" class="fixed top-5 right-5 z-50 w-10 h-10 rounded-full bg-wedding-red/80 hover:bg-wedding-red text-white soft-shadow flex items-center justify-center transition-transform duration-300 focus:outline-none" aria-label="Music Control">
+    <i id="musicIcon" class="fas fa-music text-sm"></i>
+  </button>
+
+  <nav class="fixed top-0 left-0 right-0 z-40 glass-nav border-b border-wedding-warm/20 transition-all duration-300">
+    <div class="max-w-4xl mx-auto px-6 py-3.5 flex justify-between items-center">
+      <a href="#hero" class="font-playfair text-xl font-bold tracking-widest text-wedding-red">
+        L &amp; C
+      </a>
+      <div class="flex space-x-6 text-sm font-medium tracking-widest text-wedding-dark/80">
+        <a href="#details" class="hover:text-wedding-red transition-colors whitespace-nowrap">婚禮詳情</a>
+        <a href="#rsvp" class="hover:text-wedding-red transition-colors whitespace-nowrap">出席回函</a>
+      </div>
+    </div>
+  </nav>
+
+  <section id="hero" class="relative min-h-screen pt-14 flex flex-col justify-between items-center overflow-hidden bg-stone-100">
+    <!-- Top Image Container with Fallback handling -->
+    <div class="relative w-full flex-1 max-h-[65vh] overflow-hidden bg-wedding-sand">
+      <img src="https://i.postimg.cc/J7QnMFTJ/0J7A8205.jpg" alt="政儒 & 怡靜 封面照" class="w-full h-full object-cover object-top" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80';">
+      <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/10"></div>
+    </div>
+
+    <!-- Arch White Card overlapping Image bottom -->
+    <div class="relative w-full -mt-24 z-10 hero-arch-card pt-8 pb-12 px-6 flex flex-col items-center text-center border-t border-white/60">
+      
+      <!-- Decorative Lace Edge SVG -->
+      <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-full max-w-sm flex justify-center opacity-90 pointer-events-none">
+        <svg viewBox="0 0 400 30" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full text-white fill-current">
+          <path d="M0 30 C 20 10, 40 10, 60 30 C 80 10, 100 10, 120 30 C 140 10, 160 10, 180 30 C 200 10, 220 10, 240 30 C 260 10, 280 10, 300 30 C 320 10, 340 10, 360 30 C 380 10, 400 10, 400 30 Z"/>
+        </svg>
+      </div>
+
+      <!-- Red Ribbon Icon SVG -->
+      <div class="mb-3 text-wedding-red transform hover:scale-110 transition-transform duration-300">
+        <svg class="w-12 h-12" viewBox="0 0 64 64" fill="currentColor">
+          <path d="M32 28c-4-6-14-10-18-4-5 7 2 15 11 15 5 0 7-3 7-3s2 3 7 3c9 0 16-8 11-15-4-6-14-2-18 4z" fill="none" stroke="currentColor" stroke-width="2.5"/>
+          <path d="M26 34c-4 8-12 18-18 20 4-8 10-16 14-20M38 34c4 8 12 18 18 20-4-8-10-16-14-20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="32" cy="30" r="3" fill="currentColor"/>
+        </svg>
+      </div>
+
+      <!-- Names & Welcome Header -->
+      <h2 class="text-lg md:text-xl font-medium tracking-widest text-wedding-dark mb-2 whitespace-nowrap">政儒 &amp; 怡靜</h2>
+      <h1 class="font-playfair text-3xl md:text-5xl font-semibold tracking-wider text-wedding-red my-1 uppercase">WELCOME</h1>
+      <p class="text-xs md:text-sm tracking-widest text-wedding-dark/70 mt-1 whitespace-nowrap">我們的婚禮邀請</p>
+      
+      <p class="text-xs tracking-widest text-wedding-warm mt-4 font-cormorant font-semibold">2027 . 03 . 06</p>
+    </div>
+
+    <!-- Scroll Down Indicator -->
+    <a href="#invitation-text" class="absolute bottom-2 left-1/2 -translate-x-1/2 z-20 text-wedding-warm hover:text-wedding-red transition-colors animate-bounce">
+      <i class="fas fa-chevron-down text-lg"></i>
+    </a>
+  </section>
+
+  <section id="invitation-text" class="py-16 bg-wedding-light text-center relative">
+    <div class="max-w-xl mx-auto px-6">
+      
+      <!-- Elegant Header -->
+      <div class="flex items-center justify-center space-x-3 mb-8">
+        <span class="w-2 h-2 rounded-full bg-wedding-warm/60"></span>
+        <h2 class="font-playfair text-2xl md:text-3xl text-wedding-red tracking-widest uppercase font-semibold">WEDDING</h2>
+        <span class="w-2 h-2 rounded-full bg-wedding-warm/60"></span>
+      </div>
+
+      <!-- Poem Verses -->
+      <div class="space-y-3 text-sm md:text-base leading-relaxed tracking-widest text-wedding-dark/90 font-light mb-12">
+        <p>這是一封心意滿滿的婚禮邀請函</p>
+        <p>收到這封邀請函的你們</p>
+        <p>都是我們人生中最重要的部分</p>
+        <p class="pt-2">誠摯邀請您攜家人參加我們的婚禮</p>
+        <p>見證我們的愛情</p>
+        <p>感謝您一直以來的支持與關愛</p>
+        <p class="pt-2 text-wedding-red font-normal">我們攜手期待著您的到來</p>
+      </div>
+
+      <!-- Secondary Photo -->
+      <div class="rounded-2xl overflow-hidden soft-shadow max-w-md mx-auto mb-8 border-4 border-white">
+        <img src="https://i.postimg.cc/9FY4nKhq/0J7A8218.jpg" alt="政儒與怡靜 婚紗照" class="w-full h-auto object-cover" onerror="this.onerror=null; this.src='https://placehold.co/600x400/f5efe6/8b1e23?text=Wedding+Photo';">
+      </div>
+
+      <!-- Small Bow Accent -->
+      <div class="text-wedding-red/80 flex justify-center">
+        <svg class="w-8 h-8" viewBox="0 0 64 64" fill="currentColor">
+          <circle cx="32" cy="32" r="3.5"/>
+          <path d="M32 32c-3-5-10-8-14-3-4 5 1 11 8 11 4 0 6-2 6-2s1 2 6 2c7 0 12-6 8-11-4-5-11-2-14 3z" fill="none" stroke="currentColor" stroke-width="2"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section id="countdown" class="py-16 md:py-20 bg-wedding-sand/40 relative border-y border-wedding-warm/15">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <p class="font-cormorant text-wedding-red text-base md:text-lg tracking-widest uppercase mb-1 font-semibold">Count Down To Our Special Day</p>
+      <h2 class="text-2xl md:text-3xl font-normal text-wedding-dark mb-10 tracking-widest">倒數計時</h2>
+
+      <!-- Timer Grid -->
+      <div class="grid grid-cols-4 gap-2 md:gap-6 max-w-3xl mx-auto">
+        <div class="v-card rounded-2xl p-4 md:p-6 soft-shadow flex flex-col items-center relative overflow-hidden group">
+          <span id="days" class="font-cormorant text-3xl md:text-5xl font-bold text-wedding-red mb-2">00</span>
+          <div class="w-8 h-px bg-wedding-warm/30 my-1"></div>
+          <span class="text-[11px] md:text-xs text-wedding-sage tracking-wider uppercase whitespace-nowrap">Days / 天</span>
+        </div>
+        <div class="v-card rounded-2xl p-4 md:p-6 soft-shadow flex flex-col items-center relative overflow-hidden group">
+          <span id="hours" class="font-cormorant text-3xl md:text-5xl font-bold text-wedding-red mb-2">00</span>
+          <div class="w-8 h-px bg-wedding-warm/30 my-1"></div>
+          <span class="text-[11px] md:text-xs text-wedding-sage tracking-wider uppercase whitespace-nowrap">Hours / 時</span>
+        </div>
+        <div class="v-card rounded-2xl p-4 md:p-6 soft-shadow flex flex-col items-center relative overflow-hidden group">
+          <span id="minutes" class="font-cormorant text-3xl md:text-5xl font-bold text-wedding-red mb-2">00</span>
+          <div class="w-8 h-px bg-wedding-warm/30 my-1"></div>
+          <span class="text-[11px] md:text-xs text-wedding-sage tracking-wider uppercase whitespace-nowrap">Mins / 分</span>
+        </div>
+        <div class="v-card rounded-2xl p-4 md:p-6 soft-shadow flex flex-col items-center relative overflow-hidden group">
+          <span id="seconds" class="font-cormorant text-3xl md:text-5xl font-bold text-wedding-red mb-2">00</span>
+          <div class="w-8 h-px bg-wedding-warm/30 my-1"></div>
+          <span class="text-[11px] md:text-xs text-wedding-sage tracking-wider uppercase whitespace-nowrap">Secs / 秒</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="details" class="py-16 md:py-24 bg-wedding-light">
+    <div class="max-w-3xl mx-auto px-4">
+      
+      <!-- Central V-Card -->
+      <div class="v-card rounded-3xl p-6 md:p-12 soft-shadow mb-12 text-center relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-wedding-sage via-wedding-red to-wedding-warm"></div>
+
+        <p class="font-cormorant text-wedding-warm text-xl tracking-widest italic mb-1">Save The Date</p>
+        <h2 class="text-3xl md:text-4xl font-normal text-wedding-dark mb-8 tracking-widest">婚禮詳情</h2>
+
+        <!-- Single Updated Photo Showcase -->
+        <div class="max-w-md mx-auto mb-10">
+          <div class="overflow-hidden rounded-2xl shadow-sm h-64 md:h-80 border-2 border-white">
+            <img src="https://i.postimg.cc/2SjqRGkn/0J7A8225.jpg" alt="政儒與怡靜 婚紗照" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x400/f5efe6/8b1e23?text=Wedding+Photo';">
+          </div>
+        </div>
+
+        <div class="space-y-6 text-wedding-dark/90">
+          <div>
+            <span class="block text-xs uppercase tracking-widest text-wedding-sage mb-1 font-semibold">DATE &amp; TIME / 時間</span>
+            <p class="text-lg md:text-xl font-medium text-wedding-red whitespace-nowrap">2027 年 3 月 6 日 (星期六)</p>
+            <p class="text-sm text-wedding-dark/70 mt-1 whitespace-nowrap">11:30 入席 ｜ 12:00 開席</p>
+          </div>
+
+          <div class="w-16 h-px bg-wedding-warm/25 mx-auto"></div>
+
+          <div>
+            <span class="block text-xs uppercase tracking-widest text-wedding-sage mb-1 font-semibold">LOCATION / 地點</span>
+            <p class="text-lg md:text-xl font-medium whitespace-nowrap text-wedding-dark">八德彭園</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accordions for Transportation and Information -->
+      <div class="space-y-4">
+        
+        <!-- Accordion 1 -->
+        <div class="v-card rounded-2xl soft-shadow overflow-hidden">
+          <button onclick="toggleAccordion('transAccordion')" class="w-full px-6 py-5 text-left flex justify-between items-center text-wedding-dark font-medium hover:bg-wedding-sand/30 transition-colors">
+            <span class="flex items-center text-base md:text-lg whitespace-nowrap">
+              <i class="fas fa-location-dot text-wedding-red mr-3"></i> 交通指引 LOCATION &amp; TRANSPORT
+            </span>
+            <i id="transAccordionIcon" class="fas fa-chevron-down text-wedding-sage transition-transform duration-300"></i>
+          </button>
+          <div id="transAccordion" class="hidden px-6 py-5 border-t border-wedding-warm/15 bg-white/50 text-sm text-wedding-dark/80 space-y-3 leading-relaxed">
+            <p><strong class="text-wedding-dark">地點名稱：</strong><span class="whitespace-nowrap">八德彭園</span></p>
+            <p><strong class="text-wedding-dark">宴會地址：</strong><span class="whitespace-nowrap">桃園市八德區介壽路一段728號3樓</span></p>
+            <p><strong class="text-wedding-dark">停車資訊：</strong>提供廣大專屬地下停車場，賓客可享免費停放服務。</p>
+            <p><strong class="text-wedding-dark">大眾運輸：</strong>可搭乘桃園捷運或相關公車路線至「廣豐公園站」或「置地生活廣場站」下車即可抵達。</p>
+          </div>
+        </div>
+
+        <!-- Accordion 2 -->
+        <div class="v-card rounded-2xl soft-shadow overflow-hidden">
+          <button onclick="toggleAccordion('infoAccordion')" class="w-full px-6 py-5 text-left flex justify-between items-center text-wedding-dark font-medium hover:bg-wedding-sand/30 transition-colors">
+            <span class="flex items-center text-base md:text-lg whitespace-nowrap">
+              <i class="fas fa-heart text-wedding-red mr-3"></i> 溫馨提醒 NOTICE
+            </span>
+            <i id="infoAccordionIcon" class="fas fa-chevron-down text-wedding-sage transition-transform duration-300"></i>
+          </button>
+          <div id="infoAccordion" class="hidden px-6 py-5 border-t border-wedding-warm/15 bg-white/50 text-sm text-wedding-dark/80 space-y-2 leading-relaxed">
+            <p>• 為利喜宴準時開席，敬請於 11:30 準時蒞臨報到。</p>
+            <p>• 若開車前往，請直接駛入廣豐購物中心/置地生活廣場地下停車場。</p>
+            <p>• 如有特殊飲食需求（如全素、蛋奶素），請務必於出席回函中註明。</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <section id="rsvp" class="py-16 md:py-24 bg-wedding-sand/30">
+    <div class="max-w-2xl mx-auto px-4">
+      
+      <div class="text-center mb-10">
+        <p class="font-cormorant text-wedding-red text-xl tracking-widest italic mb-1 font-semibold">R.S.V.P.</p>
+        <h2 class="text-3xl font-normal text-wedding-dark tracking-widest">出席回函</h2>
+        <p class="text-xs text-wedding-sage tracking-wider mt-2">請於 2027 年 1 月 31 日前填寫完畢</p>
+      </div>
+
+      <div class="v-card rounded-3xl p-6 md:p-10 soft-shadow relative">
+        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(window.submitted){showSuccessModal();}"></iframe>
+
+        <form id="weddingForm" action="https://docs.google.com/forms/d/e/1FAIpQLScsteB8KjR_VhmB5wBqbQ0fGnTKNZvaAu7BYDVAj-rCGXLKYg/formResponse" method="POST" target="hidden_iframe" onsubmit="window.submitted=true;" class="space-y-6">
+
+          <!-- 1. 姓名 -->
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-wedding-dark mb-2">
+              姓名 <span class="font-cormorant text-sm text-wedding-sage font-normal">NAME</span> <span class="text-wedding-red">*</span>
+            </label>
+            <input type="text" name="entry.576454794" required placeholder="請輸入您的姓名" class="w-full px-4 py-3 rounded-xl border border-wedding-warm/30 focus:border-wedding-red focus:ring-1 focus:ring-wedding-red outline-none bg-wedding-light/50 transition-all text-sm">
+          </div>
+
+          <!-- 2. 與新人關係 -->
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-wedding-dark mb-2">
+              與新人關係 <span class="font-cormorant text-sm text-wedding-sage font-normal">RELATIONSHIP</span>
+            </label>
+            <select name="entry.1624904805" class="w-full px-4 py-3 rounded-xl border border-wedding-warm/30 focus:border-wedding-red focus:ring-1 focus:ring-wedding-red outline-none bg-wedding-light/50 transition-all text-sm">
+              <option value="男方親友">男方親友</option>
+              <option value="女方親友">女方親友</option>
+              <option value="共同好友">共同好友</option>
+            </select>
+          </div>
+
+          <!-- 3. 是否出席 -->
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-wedding-dark mb-2">
+              是否出席 <span class="font-cormorant text-sm text-wedding-sage font-normal">ATTENDANCE</span> <span class="text-wedding-red">*</span>
+            </label>
+            <select id="attendSelect" name="entry.600558130" onchange="handleAttendChange()" class="w-full px-4 py-3 rounded-xl border border-wedding-warm/30 focus:border-wedding-red focus:ring-1 focus:ring-wedding-red outline-none bg-wedding-light/50 transition-all text-sm">
+              <option value="會唷，準時參加">會唷，準時參加</option>
+              <option value="不克參加，送上祝福">不克參加，送上祝福</option>
+            </select>
+          </div>
+
+          <div id="attendSection" class="space-y-6">
+            <!-- 4. 喜帖需求 -->
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-wedding-dark mb-2">
+                喜帖需求 <span class="font-cormorant text-sm text-wedding-sage font-normal">INVITATION</span>
+              </label>
+              <select id="cardSelect" name="entry.1938860839" onchange="handleCardChange()" class="w-full px-4 py-3 rounded-xl border border-wedding-warm/30 focus:border-wedding-red focus:ring-1 focus:ring-wedding-red outline-none bg-wedding-light/50 transition-all text-sm">
+                <option value="要，請給我電子喜帖">要，請給我電子喜帖</option>
+                <option value="要，請給我紙本喜帖">要，請給我紙本喜帖</option>
+                <option value="都不需要，以了解婚禮資訊">都不需要，以了解婚禮資訊</option>
+              </select>
+            </div>
+
+            <!-- 5. 紙本喜帖寄送地址 -->
+            <div id="addressGroup" class="hidden">
+              <label class="block text-xs font-semibold uppercase tracking-wider text-wedding-dark mb-2">
+                紙本喜帖寄送地址 <span class="font-cormorant text-sm text-wedding-sage font-normal">ADDRESS</span>
+              </label>
+              <input type="text" name="entry.56184496" placeholder="請輸入完整的郵遞區號及寄送地址" class="w-full px-4 py-3 rounded-xl border border-wedding-warm/30 focus:border-wedding-red focus:ring-1 focus:ring-wedding-red outline-none bg-wedding-light/50 transition-all text-sm">
+            </div>
+
+            <!-- 6. 信箱 -->
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-wedding-dark mb-2">
+                信箱 <span class="font-cormorant text-sm text-wedding-sage font-normal">EMAIL</span>
+              </label>
+              <input type="email" name="entry.306716639" placeholder="example@email.com" class="w-full px-4 py-3 rounded-xl border border-wedding-warm/30 focus:border-wedding-red focus:ring-1 focus:ring-wedding-red outline-none bg-wedding-light/50 transition-all text-sm">
+            </div>
+
+            <!-- 7. 參加人數 -->
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-wedding-dark mb-2">
+                參加人數 <span class="font-cormorant text-sm text-wedding-sage font-normal">GUESTS</span>
+              </label>
+              <input type="number" id="guestInput" name="entry.905756050" min="0" value="1" oninput="handleGuestChange()" placeholder="1" class="w-full px-4 py-3 rounded-xl border border-wedding-warm/30 focus:border-wedding-red focus:ring-1 focus:ring-wedding-red outline-none bg-wedding-light/50 transition-all text-sm">
+            </div>
+
+            <!-- Extra Options -->
+            <div id="extraGuestOptions" class="space-y-6 pt-2 border-t border-dashed border-wedding-warm/25">
+              <!-- 8. 素食需求 -->
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-wedding-dark mb-2">
+                  素食需求 <span class="font-cormorant text-sm text-wedding-sage font-normal">DIETARY</span>
+                </label>
+                <input type="number" name="entry.1584740054" min="0" value="0" placeholder="0" class="w-full px-4 py-3 rounded-xl border border-wedding-warm/30 focus:border-wedding-red focus:ring-1 focus:ring-wedding-red outline-none bg-wedding-light/50 transition-all text-sm">
+                <span class="text-[11px] text-wedding-sage mt-1 block">請填寫素食人數 (無則填 0)</span>
+              </div>
+
+              <!-- 9. 兒童椅 -->
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-wedding-dark mb-2">
+                  兒童椅 <span class="font-cormorant text-sm text-wedding-sage font-normal">BABY CHAIR</span>
+                </label>
+                <input type="number" name="entry.505371170" min="0" value="0" placeholder="0" class="w-full px-4 py-3 rounded-xl border border-wedding-warm/30 focus:border-wedding-red focus:ring-1 focus:ring-wedding-red outline-none bg-wedding-light/50 transition-all text-sm">
+                <span class="text-[11px] text-wedding-sage mt-1 block">請填寫所需數量 (無則填 0)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 10. 給新人的祝福 -->
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-wedding-dark mb-2">
+              給新人的祝福 <span class="font-cormorant text-sm text-wedding-sage font-normal">BLESSINGS</span>
+            </label>
+            <textarea name="entry.1924817638" rows="4" placeholder="寫下您對政儒與怡靜的祝賀與話語..." class="w-full px-4 py-3 rounded-xl border border-wedding-warm/30 focus:border-wedding-red focus:ring-1 focus:ring-wedding-red outline-none bg-wedding-light/50 transition-all text-sm resize-none"></textarea>
+          </div>
+
+          <button type="submit" class="w-full py-4 bg-wedding-red hover:bg-wedding-lightRed text-white font-medium rounded-xl soft-shadow tracking-widest transition-all duration-300 transform active:scale-95 text-sm uppercase">
+            確認送出 / Submit
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-8 bg-wedding-light border-t border-wedding-warm/15 text-center text-xs text-wedding-sage tracking-widest">
+    <p>CHENG-JU &amp; YI-CHING WEDDING DAY</p>
+    <p class="mt-1 opacity-75">Thank you for being part of our story</p>
+  </footer>
+
+  <!-- Success Modal -->
+  <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm hidden px-4">
+    <div class="v-card rounded-3xl p-8 max-w-sm w-full text-center soft-shadow transform transition-all">
+      <div class="w-16 h-16 bg-wedding-red/10 text-wedding-red rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+        <i class="fas fa-heart"></i>
+      </div>
+      <h3 class="text-xl font-medium text-wedding-dark mb-2">回函已成功送出</h3>
+      <p class="text-sm text-wedding-sage mb-6">非常感謝您的祝福！期待在婚禮當天與您歡聚。</p>
+      <button onclick="closeModal()" class="w-full py-3 bg-wedding-red text-white rounded-xl text-sm font-medium tracking-wider hover:bg-wedding-lightRed transition-colors">
+        關閉 Window
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Music Player Setup
+    const bgMusic = document.getElementById('bgMusic');
+    const musicBtn = document.getElementById('musicBtn');
+    const musicIcon = document.getElementById('musicIcon');
+    let isPlaying = false;
+
+    function toggleMusic() {
+      if (isPlaying) {
+        bgMusic.pause();
+        musicIcon.classList.remove('fa-spin');
+        musicIcon.classList.replace('fa-compact-disc', 'fa-music');
+      } else {
+        bgMusic.play().then(() => {
+          musicIcon.classList.add('fa-spin');
+          musicIcon.classList.replace('fa-music', 'fa-compact-disc');
+        }).catch(() => {});
+      }
+      isPlaying = !isPlaying;
     }
 
-    .nav-logo {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--primary-red);
-      letter-spacing: 1px;
+    document.addEventListener('click', function initAudio() {
+      if (!isPlaying) {
+        toggleMusic();
+      }
+      document.removeEventListener('click', initAudio);
+    }, { once: true });
+
+    // Countdown Timer (2027-03-06 11:30)
+    const weddingDate = new Date('2027-03-06T11:30:00').getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = weddingDate - now;
+
+      if (distance < 0) {
+        document.getElementById('days').innerText = '00';
+        document.getElementById('hours').innerText = '00';
+        document.getElementById('minutes').innerText = '00';
+        document.getElementById('seconds').innerText = '00';
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById('days').innerText = String(days).padStart(2, '0');
+      document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+      document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+      document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
     }
 
-    .nav-btn {
-      background-color: var(--primary-red);
-      color: #fff;
-      padding: 6px 16px;
-      border-radius: 20px;
-      text-decoration: none;
-      font-size: 0.85rem;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 10px rgba(139, 30, 45, 0.2);
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Accordion Handler
+    function toggleAccordion(id) {
+      const content = document.getElementById(id);
+      const icon = document.getElementById(id + 'Icon');
+      
+      if (content.classList.contains('hidden')) {
+        content.classList.remove('hidden');
+        icon.classList.add('rotate-180');
+      } else {
+        content.classList.add('hidden');
+        icon.classList.remove('rotate-180');
+      }
     }
 
-    .nav-btn:hover {
-      background-color: var(--soft-red);
+    // Dynamic Form Logic
+    function handleAttendChange() {
+      const attendSelect = document.getElementById('attendSelect');
+      const attendSection = document.getElementById('attendSection');
+
+      if (attendSelect.value === '不克參加，送上祝福') {
+        attendSection.classList.add('hidden');
+      } else {
+        attendSection.classList.remove('hidden');
+      }
     }
 
-    /* 浮動音樂按鈕 */
-    .music-btn {
-      position: fixed;
-      top: 65px;
-      right: 18px;
-      z-index: 99;
-      width: 40px;
-      height: 40px;
-      background: var(--card-white);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--primary-red);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      cursor: pointer;
-      border: 1px solid var(--border-color);
-      transition: transform 0.3s;
+    function handleCardChange() {
+      const cardSelect = document.getElementById('cardSelect');
+      const addressGroup = document.getElementById('addressGroup');
+
+      if (cardSelect.value === '要，請給我紙本喜帖') {
+        addressGroup.classList.remove('hidden');
+      } else {
+        addressGroup.classList.add('hidden');
+      }
     }
 
-    .music-btn.playing i {
-      animation: spin 4s linear infinite;
+    function handleGuestChange() {
+      const guestInput = document.getElementById('guestInput');
+      const extraGuestOptions = document.getElementById('extraGuestOptions');
+      const count = parseInt(guestInput.value) || 0;
+
+      if (count > 0) {
+        extraGuestOptions.classList.remove('hidden');
+      } else {
+        extraGuestOptions.classList.add('hidden');
+      }
     }
 
-    @keyframes spin {
-      100% { transform: rotate(360deg); }
+    function showSuccessModal() {
+      document.getElementById('successModal').classList.remove('hidden');
+      document.getElementById('weddingForm').reset();
+      handleAttendChange();
+      handleCardChange();
+      handleGuestChange();
     }
 
-    /* 首頁全螢幕與跨平台相容封面 */
-    .hero-section {
-      position: relative;
-      width: 100%;
-      max-width: 520px;
-      margin: 0 auto;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      background-color: var(--bg-cream);
-      overflow: hidden;
-      padding-top: 55px;
+    function closeModal() {
+      document.getElementById('successModal').classList.add('hidden');
     }
 
-    .hero-img-container {
-      width: 100%;
-      flex: 1;
-      min-height: 50vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    .hero-bg-img {
-      width: 100%;
-      height: 100%;
-      max-height: 70vh;
-      object-fit: cover;
-      object-position: center top;
-      display: block;
-    }
-
-    /* 圓弧白色拱形卡片覆蓋 */
-    .hero-card {
-      position: relative;
-      z-index: 10;
-      width: 100%;
-      background: var(--card-white);
-      border-radius: 40px 40px 0 0;
-      padding: 30px 24px 40px;
-      text-align: center;
-      box-shadow: 0 -10px 25px rgba(0,0,0,0.05);
-      margin-top: -30px;
-    }
-
-    /* 蝴蝶結裝飾 */
-    .bow-icon {
-      width: 45px;
-      height: 45px;
-      margin: -52px auto 10px;
-      background: var(--card-white);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    }
-
-    .bow-icon svg {
-      width: 28px;
-      height: 28px;
-      fill: var(--primary-red);
-    }
-
-    .couple-names {
-      font-size: 1.3rem;
-      font-weight: 600;
-      letter-spacing: 2px;
-      color: var(--text-dark);
-      margin-bottom: 8px;
-    }
-
-    .welcome-title {
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: var(--primary-red);
-      letter-spacing: 4px;
-      line-height: 1;
-      margin: 10px 0 8px;
-    }
-
-    .welcome-subtitle {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      letter-spacing: 3px;
-    }
-
-    /* 通用章節與卡片 */
-    .section-container {
-      max-width: 520px;
-      margin: 0 auto;
-      padding: 50px 20px;
-      text-align: center;
-    }
-
-    .section-sparkle-title {
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--primary-red);
-      letter-spacing: 4px;
-      margin-bottom: 25px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .spark
+    window.onload = function() {
+      handleAttendChange();
+      handleCardChange();
+      handleGuestChange();
+    };
+  </script>
+</body>
+</html>
