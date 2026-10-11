@@ -71,11 +71,6 @@
 </head>
 <body class="antialiased selection:bg-wedding-red selection:text-white">
 
-  <!-- Global window.submitted flag for Iframe form handling -->
-  <script>
-    window.submitted = false;
-  </script>
-
   <!-- Background Music (Galaxy - Bolbbalgan4) -->
   <audio id="bgMusic" loop>
     <source src="https://ia801503.us.archive.org/15/items/bolbbalgan4-galaxy/Bolbbalgan4%20-%20Galaxy.mp3" type="audio/mpeg">
@@ -287,10 +282,7 @@
       </div>
 
       <div class="v-card rounded-3xl p-6 md:p-10 soft-shadow relative">
-        <!-- Standard HTML Form Handled via JavaScript Fetch -->
-        <form id="weddingForm" 
-              onsubmit="submitForm(event)" 
-              class="space-y-6">
+        <form id="weddingForm" onsubmit="submitForm(event)" class="space-y-6">
 
           <!-- 1. 姓名 -->
           <div>
@@ -461,9 +453,9 @@
     function handleCardChange() {
       const cardSelect = document.getElementById('cardSelect');
       const addressGroup = document.getElementById('addressGroup');
-      if (cardSelect.value === '要，請給我紙本喜帖') {
+      if (cardSelect && cardSelect.value === '要，請給我紙本喜帖') {
         addressGroup.classList.remove('hidden');
-      } else {
+      } else if (addressGroup) {
         addressGroup.classList.add('hidden');
       }
     }
@@ -500,7 +492,6 @@
         showSuccessModal();
       }).catch((error) => {
         console.error("Submission error:", error);
-        // Even if CORS blocks response reading, Google Form receives it successfully under no-cors
         showSuccessModal();
       }).finally(() => {
         submitBtn.disabled = false;
