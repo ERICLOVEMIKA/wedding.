@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>政儒 & 怡靜 婚禮邀請函 | Wedding Invitation</title>
+  <title>政儒 &amp; 怡靜 婚禮邀請函 | Wedding Invitation</title>
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -65,13 +65,13 @@
       border-top-left-radius: 180px;
       border-top-right-radius: 180px;
       box-shadow: 0 -15px 35px rgba(0, 0, 0, 0.08);
-      margin-top: -60px;
+      margin-top: -65px;
     }
   </style>
 </head>
 <body class="antialiased selection:bg-wedding-red selection:text-white">
 
-  <!-- Define global script variables early -->
+  <!-- Global window.submitted flag for Iframe form handling -->
   <script>
     window.submitted = false;
   </script>
@@ -98,19 +98,19 @@
     </div>
   </nav>
 
-  <section id="hero" class="relative min-h-screen pt-14 flex flex-col justify-between items-center overflow-hidden bg-wedding-sand">
-    <!-- Top Image Container -->
-    <div class="relative w-full flex-1 max-h-[62vh] overflow-hidden bg-wedding-sand">
-      <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80" alt="政儒 & 怡靜 封面照" class="w-full h-full object-cover object-top" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=80';">
-      <div class="absolute inset-0 bg-gradient-to-b from-black/15 via-transparent to-black/5"></div>
+  <section id="hero" class="relative min-h-screen pt-14 flex flex-col justify-between items-center overflow-hidden bg-[#eef1ed]">
+    <!-- Top Image Container with object-contain to prevent photo clipping -->
+    <div class="relative w-full flex-1 h-[60vh] md:h-[65vh] overflow-hidden flex items-center justify-center bg-[#eef1ed]">
+      <img src="https://i.postimg.cc/J7QnMFTJ/0J7A8205.jpg" alt="政儒 &amp; 怡靜 封面照" class="w-full h-full object-contain object-center scale-100" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80';">
+      <div class="absolute inset-0 bg-gradient-to-b from-black/5 via-transparent to-black/5 pointer-events-none"></div>
     </div>
 
     <!-- Arch White Card overlapping Image bottom -->
-    <div class="relative w-full z-10 hero-arch-card pt-10 pb-12 px-6 flex flex-col items-center text-center border-t border-white/80">
+    <div class="relative w-full z-10 hero-arch-card pt-10 pb-12 px-6 flex flex-col items-center text-center border-t border-white/85">
       
-      <!-- Lace Edge SVG Fixed for Mobile Scaling -->
-      <div class="absolute -top-5 left-0 right-0 flex justify-center opacity-95 pointer-events-none overflow-hidden">
-        <svg viewBox="0 0 400 24" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-full h-5 text-white fill-current">
+      <!-- Responsive Lace Edge SVG perfectly aligned at top -->
+      <div class="absolute -top-5 left-0 right-0 flex justify-center opacity-95 pointer-events-none overflow-hidden px-0">
+        <svg viewBox="0 0 400 24" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-5 text-white fill-current">
           <path d="M0 24 C 20 4, 40 4, 60 24 C 80 4, 100 4, 120 24 C 140 4, 160 4, 180 24 C 200 4, 220 4, 240 24 C 260 4, 280 4, 300 24 C 320 4, 340 4, 360 24 C 380 4, 400 4, 400 24 Z"/>
         </svg>
       </div>
@@ -287,8 +287,8 @@
       </div>
 
       <div class="v-card rounded-3xl p-6 md:p-10 soft-shadow relative">
-        <!-- Hidden iframe for silent submit -->
-        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(window.submitted){showSuccessModal();}"></iframe>
+        <!-- Hidden iframe for reliable form submission -->
+        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(window.submitted){ showSuccessModal(); }"></iframe>
 
         <!-- Standard HTML Form Submit directly to Google Form endpoint -->
         <form id="weddingForm" 
@@ -425,7 +425,7 @@
 
   <script>
     // ----------------------------------------------------
-    // Global Helper Functions (Must be defined before onload)
+    // Global Helper Functions
     // ----------------------------------------------------
     function toggleMusic() {
       const music = document.getElementById('bgMusic');
@@ -488,10 +488,10 @@
     function showSuccessModal() {
       document.getElementById('successModal').classList.remove('hidden');
       document.getElementById('weddingForm').reset();
-      window.submitted = false;
       handleAttendChange();
       handleCardChange();
       handleGuestChange();
+      window.submitted = false;
     }
 
     function closeModal() {
