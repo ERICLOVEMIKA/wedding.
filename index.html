@@ -114,10 +114,8 @@
     <!-- Navigation Bar -->
     <nav class="fixed top-0 left-0 right-0 z-50 glass-nav h-16 transition-all duration-300">
         <div class="max-w-md mx-auto h-full px-5 flex items-center justify-between">
-            <a href="#home" class="font-cormorant text-lg font-bold tracking-widest text-morandi-gold flex items-center gap-1.5">
-                <span class="text-sm">✨</span>
+            <a href="#home" class="font-cormorant text-lg font-bold tracking-widest text-morandi-gold flex items-center">
                 <span>LEE & CHEN</span>
-                <span class="text-xs text-rose-400">♥</span>
             </a>
             <div class="flex items-center space-x-2 text-xs font-medium">
                 <a href="#details" class="px-3 py-1.5 rounded-full bg-morandi-gold/10 text-morandi-gold hover:bg-morandi-gold hover:text-white transition-all duration-300 flex items-center gap-1 shadow-sm active:scale-95">
@@ -316,7 +314,7 @@
                 <!-- Hidden Iframe Target -->
                 <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) { showThankYouMsg(); }"></iframe>
 
-                <!-- FORM START (Updated with exact new entry IDs & completely blank values) -->
+                <!-- FORM START -->
                 <form id="weddingForm" 
                       action="https://docs.google.com/forms/d/e/1FAIpQLScsteB8KjR_VhmB5wBqbQ0fGnTKNZvaAu7BYDVAj-rCGXLKYg/formResponse" 
                       method="POST" 
@@ -450,9 +448,6 @@
     </div>
 
     <script>
-        // Track Form Submission Flag
-        // var submitted is already initialized in <head>
-
         // 1. YouTube Iframe API Integration
         var tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
@@ -460,49 +455,74 @@
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
         var player;
+        var isPlaying = false;
+        var hasUserInteracted = false;
+        const musicIcon = document.getElementById('musicIcon');
+
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('player', {
-                height: '315',
-                width: '560',
+                height: '0',
+                width: '0',
                 videoId: '-Fy3P0D4fFM',
                 playerVars: {
                     'playsinline': 1,
+                    'autoplay': 1,
+                    'controls': 0,
                     'rel': 0,
                     'loop': 1,
                     'playlist': '-Fy3P0D4fFM'
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
                 }
             });
         }
 
-        const musicIcon = document.getElementById('musicIcon');
-        let isPlaying = false;
+        function onPlayerReady(event) {
+            // Try attempting unmuted auto-play immediately
+            event.target.playVideo();
+        }
 
-        function toggleAudio() {
-            if (!player || typeof player.getPlayerState !== 'function') return;
-            const state = player.getPlayerState();
-            if (state === YT.PlayerState.PLAYING) {
-                player.pauseVideo();
-                musicIcon.classList.remove('fa-spin', 'text-morandi-gold');
-                musicIcon.classList.add('opacity-50');
-                isPlaying = false;
-            } else {
-                player.playVideo();
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                isPlaying = true;
                 musicIcon.classList.add('fa-spin', 'text-morandi-gold');
                 musicIcon.classList.remove('opacity-50');
-                isPlaying = true;
+            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+                isPlaying = false;
+                musicIcon.classList.remove('fa-spin', 'text-morandi-gold');
+                musicIcon.classList.add('opacity-50');
             }
         }
 
-        // Auto-play attempt on first user interaction
-        document.addEventListener('click', function initAudioOnUserInteraction() {
-            if (!isPlaying && player && typeof player.playVideo === 'function') {
+        function toggleAudio() {
+            if (!player || typeof player.getPlayerState !== 'function') return;
+            
+            if (isPlaying) {
+                player.pauseVideo();
+            } else {
                 player.playVideo();
-                musicIcon.classList.add('fa-spin', 'text-morandi-gold');
-                musicIcon.classList.remove('opacity-50');
-                isPlaying = true;
             }
-            document.removeEventListener('click', initAudioOnUserInteraction);
-        }, { once: true });
+        }
+
+        // Auto-play trigger on any user touch/click/scroll interaction across the document
+        function handleFirstInteraction() {
+            if (!hasUserInteracted) {
+                hasUserInteracted = true;
+                if (player && typeof player.playVideo === 'function' && !isPlaying) {
+                    player.playVideo();
+                }
+            }
+            // Remove handlers once triggered
+            window.removeEventListener('click', handleFirstInteraction);
+            window.removeEventListener('touchstart', handleFirstInteraction);
+            window.removeEventListener('scroll', handleFirstInteraction);
+        }
+
+        window.addEventListener('click', handleFirstInteraction, { passive: true });
+        window.addEventListener('touchstart', handleFirstInteraction, { passive: true });
+        window.addEventListener('scroll', handleFirstInteraction, { passive: true });
 
         // 2. Countdown Timer Logic (Target: 2027/03/06 12:00:00)
         const weddingTime = new Date('2027-03-06T12:00:00').getTime();
@@ -594,10 +614,10 @@
             }
         }
 
-        // Modal triggers
         function showThankYouMsg() {
             document.getElementById('thankYouModal').classList.remove('hidden');
             document.getElementById('weddingForm').reset();
+            // Reset dynamic states after reset
             handleAttendanceChange();
             handleInvitationChange();
         }
@@ -605,11 +625,6 @@
         function closeModal() {
             document.getElementById('thankYouModal').classList.add('hidden');
         }
-
-        window.onload = function() {
-            handleAttendanceChange();
-            handleInvitationChange();
-        };
     </script>
 </body>
 </html>
