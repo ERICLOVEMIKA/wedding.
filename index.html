@@ -105,25 +105,29 @@
     <!-- Music Player Controls (YouTube Embed as requested) -->
     <div class="fixed top-20 right-4 z-40 flex items-center space-x-2">
         <button id="musicToggle" onclick="toggleAudio()" class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-morandi-gold shadow-md hover:scale-105 transition-all duration-300 focus:outline-none" title="오시영 - 너무 예뻐 (So Pretty)">
-            <i id="musicIcon" class="fas fa-music text-sm animate-music"></i>
+            <i id="musicIcon" class="fas fa-music text-sm"></i>
         </button>
-        <!-- Custom Hidden YouTube Container -->
-        <div style="position:relative;width:0px;height:0px;overflow:hidden;opacity:0;pointer-events:none;">
-            <div style="position:absolute;top:0px;left:0px">
-                <iframe id="ytMusicFrame" width="300" height="300" 
-                    src="https://www.youtube.com/embed/UWIGP0JuFAA?si=jYVcjyov83TkCzWr?rel=0">
-                </iframe>
-            </div>
-        </div>
+        <!-- YouTube Iframe API Player Container (Hidden) -->
+        <div id="player" style="position:absolute;width:0px;height:0px;overflow:hidden;opacity:0;pointer-events:none;"></div>
     </div>
 
     <!-- Navigation Bar -->
     <nav class="fixed top-0 left-0 right-0 z-50 glass-nav h-16 transition-all duration-300">
-        <div class="max-w-md mx-auto h-full px-6 flex items-center justify-between">
-            <a href="#home" class="font-cormorant text-xl font-bold tracking-widest text-morandi-gold">LEE & CHEN</a>
-            <div class="flex space-x-6 text-xs tracking-widest font-medium text-morandi-textDark">
-                <a href="#details" class="hover:text-morandi-gold transition-colors py-2">婚禮詳情 DETAILS</a>
-                <a href="#rsvp" class="hover:text-morandi-gold transition-colors py-2">出席回函 RSVP</a>
+        <div class="max-w-md mx-auto h-full px-5 flex items-center justify-between">
+            <a href="#home" class="font-cormorant text-lg font-bold tracking-widest text-morandi-gold flex items-center gap-1.5">
+                <span class="text-sm">✨</span>
+                <span>LEE & CHEN</span>
+                <span class="text-xs text-rose-400">♥</span>
+            </a>
+            <div class="flex items-center space-x-2 text-xs font-medium">
+                <a href="#details" class="px-3 py-1.5 rounded-full bg-morandi-gold/10 text-morandi-gold hover:bg-morandi-gold hover:text-white transition-all duration-300 flex items-center gap-1 shadow-sm active:scale-95">
+                    <span>🌸</span>
+                    <span>婚禮詳情</span>
+                </a>
+                <a href="#rsvp" class="px-3 py-1.5 rounded-full bg-morandi-roseAcc/15 text-morandi-roseAcc hover:bg-morandi-roseAcc hover:text-white transition-all duration-300 flex items-center gap-1 shadow-sm active:scale-95">
+                    <span>💌</span>
+                    <span>出席回函</span>
+                </a>
             </div>
         </div>
     </nav>
@@ -449,27 +453,53 @@
         // Track Form Submission Flag
         // var submitted is already initialized in <head>
 
-        // 1. YouTube Audio Player Toggle Handling
+        // 1. YouTube Iframe API Integration
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '315',
+                width: '560',
+                videoId: '-Fy3P0D4fFM',
+                playerVars: {
+                    'playsinline': 1,
+                    'rel': 0,
+                    'loop': 1,
+                    'playlist': '-Fy3P0D4fFM'
+                }
+            });
+        }
+
         const musicIcon = document.getElementById('musicIcon');
-        const ytMusicFrame = document.getElementById('ytMusicFrame');
         let isPlaying = false;
 
         function toggleAudio() {
-            if (isPlaying) {
-                musicIcon.classList.remove('fa-spin');
+            if (!player || typeof player.getPlayerState !== 'function') return;
+            const state = player.getPlayerState();
+            if (state === YT.PlayerState.PLAYING) {
+                player.pauseVideo();
+                musicIcon.classList.remove('fa-spin', 'text-morandi-gold');
                 musicIcon.classList.add('opacity-50');
                 isPlaying = false;
             } else {
-                musicIcon.classList.add('fa-spin');
+                player.playVideo();
+                musicIcon.classList.add('fa-spin', 'text-morandi-gold');
                 musicIcon.classList.remove('opacity-50');
                 isPlaying = true;
             }
         }
 
+        // Auto-play attempt on first user interaction
         document.addEventListener('click', function initAudioOnUserInteraction() {
-            if (!isPlaying) {
+            if (!isPlaying && player && typeof player.playVideo === 'function') {
+                player.playVideo();
+                musicIcon.classList.add('fa-spin', 'text-morandi-gold');
+                musicIcon.classList.remove('opacity-50');
                 isPlaying = true;
-                musicIcon.classList.add('fa-spin');
             }
             document.removeEventListener('click', initAudioOnUserInteraction);
         }, { once: true });
